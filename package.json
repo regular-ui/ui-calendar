@@ -1,0 +1,16 @@
+{
+  "name": "rgui-calendar",
+  "description": "Regular UI - Calendar",
+  "version": "0.2.0",
+  "author": "Rainfore <rainforest92@126.com>",
+  "main": "./index.js",
+  "repository": "regular-ui/ui-calendar",
+  "homepage": "http://regular-ui.github.io",
+  "bugs": {"url": "http://github.com/regular-ui/ui-calendar/issues"},
+  "license": "MIT",
+  "keywords": ["regular", "ui", "calendar"],
+  "tags": ["regular", "ui", "calendar"],
+  "dependencies": {
+    "rgui-base": "^0.2.0-alpha"
+  }
+}
