@@ -1,12 +1,6 @@
-import {Component, _} from 'rgui-base';
+import {Component} from 'rgui-base';
+import _ from '../util';
 import template from './index.rgl';
-
-// let bowser = require('bowser');
-let MS_OF_DAY = 24*3600*1000;
-
-_.clearTime = function(date) {
-    return new Date((date/MS_OF_DAY>>0)*MS_OF_DAY);
-}
 
 /**
  * @class Calendar
@@ -37,20 +31,13 @@ let Calendar = Component.extend({
         this.supr();
 
         this.$watch('date', (newValue, oldValue) => {
-            // 字符串或时间戳自动转为日期类型
-            if(typeof newValue === 'string') {
-                // if(bowser.msie && bowser.version <= 9)
-                    // return this.data.date = polyfill.StringDate(newValue);
+            // 时间戳或字符串自动转为日期类型
+            if(typeof newValue === 'number')
                 return this.data.date = new Date(newValue);
-            } else if(typeof newValue === 'number') {
-                return this.data.date = new Date(newValue);
-            }
+            else if(typeof newValue === 'string')
+                return this.data.date = _.parseDate(newValue);
 
-            // 如果newValue为空， 则自动转到今天
-            // if(!newValue)
-            //     return this.data.date = _.clearTime(new Date);
-
-            if(newValue == 'Invalid Date')
+            if(!newValue || newValue == 'Invalid Date')
                 throw new TypeError('Invalid Date');
 
             // 如果超出日期范围，则设置为范围边界的日期
@@ -83,13 +70,11 @@ let Calendar = Component.extend({
             if(!newValue)
                 return;
 
-            if(typeof newValue === 'string') {
-                // if(bowser.msie && bowser.version <= 9)
-                    // return this.data.minDate = polyfill.StringDate(newValue);
+            // 时间戳或字符串自动转为日期类型
+            if(typeof newValue === 'number')
                 return this.data.minDate = new Date(newValue);
-            } else if(typeof newValue === 'number') {
-                return this.data.minDate = new Date(newValue);
-            }
+            else if(typeof newValue === 'string')
+                return this.data.minDate = _.parseDate(newValue);
 
             if(newValue == 'Invalid Date')
                 throw new TypeError('Invalid Date');
@@ -99,31 +84,29 @@ let Calendar = Component.extend({
             if(!newValue)
                 return;
 
-            if(typeof newValue === 'string') {
-                // if(bowser.msie && bowser.version <= 9)
-                    // return this.data.maxDate = polyfill.StringDate(newValue);
+            // 时间戳或字符串自动转为日期类型
+            if(typeof newValue === 'number')
                 return this.data.maxDate = new Date(newValue);
-            } else if(typeof newValue === 'number') {
-                return this.data.maxDate = new Date(newValue);
-            }
+            else if(typeof newValue === 'string')
+                return this.data.maxDate = _.parseDate(newValue);
 
             if(newValue == 'Invalid Date')
                 throw new TypeError('Invalid Date');
         });
 
-        // this.$watch(['minDate', 'maxDate'], function(minDate, maxDate) {
-        //     if(!(minDate && minDate instanceof Date || maxDate && maxDate instanceof Date))
-        //         return;
+        this.$watch(['minDate', 'maxDate'], (minDate, maxDate) => {
+            if(!(minDate && minDate instanceof Date || maxDate && maxDate instanceof Date))
+                return;
 
-        //     if(minDate && maxDate)
-        //         if(minDate/MS_OF_DAY>>0 > maxDate/MS_OF_DAY>>0)
-        //             throw new Calendar.DateRangeError(minDate, maxDate);
+            if(minDate && maxDate)
+                if(_.clearTime(minDate) > _.clearTime(maxDate))
+                    throw new RangeError('Wrong Date Range where `minDate` is ' + minDate + ' and `maxDate` is ' + maxDate + '!');
 
-        //     // 如果超出日期范围，则设置为范围边界的日期
-        //     let isOutOfRange = this.isOutOfRange(this.data.date);
-        //     if(isOutOfRange)
-        //         this.data.date = isOutOfRange;
-        // });
+            // 如果超出日期范围，则设置为范围边界的日期
+            let isOutOfRange = this.isOutOfRange(this.data.date);
+            if(isOutOfRange)
+                this.data.date = isOutOfRange;
+        });
     },
     /**
      * @method _update() 日期改变后更新日历
@@ -139,11 +122,11 @@ let Calendar = Component.extend({
         let mfirstTime = +mfirst;
         let nfirst = new Date(mfirst); nfirst.setMonth(month + 1); nfirst.setDate(1);
         let nfirstTime = +nfirst;
-        let lastTime = nfirstTime + ((7 - nfirst.getDay())%7 - 1)*MS_OF_DAY;
+        let lastTime = nfirstTime + ((7 - nfirst.getDay())%7 - 1)*_.MS_OF_DAY;
         let num = - mfirst.getDay();
         let tmpTime, tmp;
         do {
-            tmpTime = mfirstTime + (num++)*MS_OF_DAY;
+            tmpTime = mfirstTime + (num++)*_.MS_OF_DAY;
             tmp = new Date(tmpTime);
             this.data._days.push(tmp);
         } while(tmpTime < lastTime);
@@ -234,20 +217,16 @@ let Calendar = Component.extend({
         let minDate = this.data.minDate;
         let maxDate = this.data.maxDate;
 
+        if(minDate && typeof minDate === 'string' || maxDate && typeof maxDate === 'string')
+            return;
+
         // 不要直接在$watch中改变`minDate`和`maxDate`的值，因为有时向外绑定时可能不希望改变它们。
-        minDate = minDate && new Date((minDate/MS_OF_DAY>>0)*MS_OF_DAY);
-        maxDate = maxDate && new Date((maxDate/MS_OF_DAY>>0)*MS_OF_DAY);
+        minDate = minDate && _.clearTime(minDate);
+        maxDate = maxDate && _.clearTime(maxDate);
 
         // minDate && date < minDate && minDate，先判断是否为空，再判断是否超出范围，如果超出则返回范围边界的日期
         return (minDate && date < minDate && minDate) || (maxDate && date > maxDate && maxDate);
     }
 });
-
-let DateRangeError = function(minDate, maxDate) {
-    this.name = 'DateRangeError';
-    this.message = 'Wrong Date Range where `minDate` is ' + minDate + ' and `maxDate` is ' + maxDate + '!';
-}
-DateRangeError.prototype = Object.create(RangeError.prototype);
-Calendar.DateRangeError = DateRangeError.prototype.constructor = DateRangeError;
 
 export default Calendar;
