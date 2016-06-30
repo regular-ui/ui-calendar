@@ -2,6 +2,8 @@
 
 Regular UI - Calendar
 
+[![Build Status](https://travis-ci.org/regular-ui/ui-calendar.svg?branch=master)](https://travis-ci.org/regular-ui/ui-calendar)
+
 ## Calendar（日历）
 
 - 基础示例+API: https://regular-ui.github.io/ui-calendar/calendar/index.html
