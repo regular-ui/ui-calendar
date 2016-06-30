@@ -1,0 +1,10 @@
+sudo: false
+language: node_js
+node_js:
+  - 4
+  - node
+install:
+  - npm install -g rgui-tools
+  - npm install
+script:
+  - rgui-tools -s test
