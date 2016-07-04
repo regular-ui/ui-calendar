@@ -1,4 +1,4 @@
-import Calendar from '../index.js';
+import Calendar from '../';
 import _ from '../../util';
 
 describe('Calendar', () => {
