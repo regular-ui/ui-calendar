@@ -1,4 +1,4 @@
-import {Component} from 'rgui-base';
+import { Component } from 'rgui-base';
 import _ from '../util';
 import template from './index.rgl';
 
@@ -14,7 +14,7 @@ import template from './index.rgl';
  * @param {boolean=true}            options.data.visible             => 是否显示
  * @param {string=''}               options.data.class               => 补充class
  */
-let Calendar = Component.extend({
+const Calendar = Component.extend({
     name: 'calendar',
     template,
     /**
@@ -23,26 +23,26 @@ let Calendar = Component.extend({
      */
     config() {
         this.data = Object.assign({
-            date: _.clearTime(new Date),
+            date: _.clearTime(new Date()),
             minDate: undefined,
             maxDate: undefined,
-            _days: []
+            _days: [],
         }, this.data);
         this.supr();
 
         this.$watch('date', (newValue, oldValue) => {
             // 时间戳或字符串自动转为日期类型
-            if(typeof newValue === 'number')
+            if (typeof newValue === 'number')
                 return this.data.date = new Date(newValue);
-            else if(typeof newValue === 'string')
+            else if (typeof newValue === 'string')
                 return this.data.date = _.parseDate(newValue);
 
-            if(!newValue || newValue == 'Invalid Date')
+            if (!newValue || newValue + '' === 'Invalid Date')
                 throw new TypeError('Invalid Date');
 
             // 如果超出日期范围，则设置为范围边界的日期
-            let isOutOfRange = this.isOutOfRange(newValue);
-            if(isOutOfRange) {
+            const isOutOfRange = this.isOutOfRange(newValue);
+            if (isOutOfRange) {
                 this.data.date = isOutOfRange;
 
                 // 防止第二次刷新同月
@@ -50,9 +50,9 @@ let Calendar = Component.extend({
                 return;
             }
 
-            if(!oldValue || !oldValue.getFullYear)
+            if (!oldValue || !oldValue.getFullYear)
                 this._update();
-            else if(newValue.getFullYear() !== oldValue.getFullYear() || newValue.getMonth() !== oldValue.getMonth())
+            else if (newValue.getFullYear() !== oldValue.getFullYear() || newValue.getMonth() !== oldValue.getMonth())
                 this._update();
 
             /**
@@ -62,49 +62,50 @@ let Calendar = Component.extend({
              */
             this.$emit('change', {
                 sender: this,
-                date: newValue
+                date: newValue,
             });
         });
 
         this.$watch('minDate', (newValue, oldValue) => {
-            if(!newValue)
+            if (!newValue)
                 return;
 
             // 时间戳或字符串自动转为日期类型
-            if(typeof newValue === 'number')
+            if (typeof newValue === 'number')
                 return this.data.minDate = new Date(newValue);
-            else if(typeof newValue === 'string')
+            else if (typeof newValue === 'string')
                 return this.data.minDate = _.parseDate(newValue);
 
-            if(newValue == 'Invalid Date')
+            if (newValue + '' === 'Invalid Date')
                 throw new TypeError('Invalid Date');
         });
 
         this.$watch('maxDate', (newValue, oldValue) => {
-            if(!newValue)
+            if (!newValue)
                 return;
 
             // 时间戳或字符串自动转为日期类型
-            if(typeof newValue === 'number')
+            if (typeof newValue === 'number')
                 return this.data.maxDate = new Date(newValue);
-            else if(typeof newValue === 'string')
+            else if (typeof newValue === 'string')
                 return this.data.maxDate = _.parseDate(newValue);
 
-            if(newValue == 'Invalid Date')
+            if (newValue + '' === 'Invalid Date')
                 throw new TypeError('Invalid Date');
         });
 
         this.$watch(['minDate', 'maxDate'], (minDate, maxDate) => {
-            if(!(minDate && minDate instanceof Date || maxDate && maxDate instanceof Date))
+            if (!(minDate && minDate instanceof Date || maxDate && maxDate instanceof Date))
                 return;
 
-            if(minDate && maxDate)
-                if(_.clearTime(minDate) > _.clearTime(maxDate))
+            if (minDate && maxDate) {
+                if (_.clearTime(minDate) > _.clearTime(maxDate))
                     throw new RangeError('Wrong Date Range where `minDate` is ' + minDate + ' and `maxDate` is ' + maxDate + '!');
+            }
 
             // 如果超出日期范围，则设置为范围边界的日期
-            let isOutOfRange = this.isOutOfRange(this.data.date);
-            if(isOutOfRange)
+            const isOutOfRange = this.isOutOfRange(this.data.date);
+            if (isOutOfRange)
                 this.data.date = isOutOfRange;
         });
     },
@@ -116,20 +117,20 @@ let Calendar = Component.extend({
     _update() {
         this.data._days = [];
 
-        let date = this.data.date;
-        let month = date.getMonth();
-        let mfirst = new Date(date); mfirst.setDate(1);
-        let mfirstTime = +mfirst;
-        let nfirst = new Date(mfirst); nfirst.setMonth(month + 1); nfirst.setDate(1);
-        let nfirstTime = +nfirst;
-        let lastTime = nfirstTime + ((7 - nfirst.getDay())%7 - 1)*_.MS_OF_DAY;
-        let num = - mfirst.getDay();
+        const date = this.data.date;
+        const month = date.getMonth();
+        const mfirst = new Date(date); mfirst.setDate(1);
+        const mfirstTime = +mfirst;
+        const nfirst = new Date(mfirst); nfirst.setMonth(month + 1); nfirst.setDate(1);
+        const nfirstTime = +nfirst;
+        const lastTime = nfirstTime + ((7 - nfirst.getDay())%7 - 1)*_.MS_OF_DAY;
+        let num = -mfirst.getDay();
         let tmpTime, tmp;
         do {
             tmpTime = mfirstTime + (num++)*_.MS_OF_DAY;
             tmp = new Date(tmpTime);
             this.data._days.push(tmp);
-        } while(tmpTime < lastTime);
+        } while (tmpTime < lastTime);
     },
     /**
      * @method addYear(year) 调整年份
@@ -138,16 +139,16 @@ let Calendar = Component.extend({
      * @return {Date} date 计算后的日期
      */
     addYear(year) {
-        if(this.data.readonly || this.data.disabled || !year)
+        if (this.data.readonly || this.data.disabled || !year)
             return;
 
-        if(isNaN(year))
+        if (isNaN(year))
             throw new TypeError(year + ' is not a number!');
 
-        let date = new Date(this.data.date);
-        let oldMonth = date.getMonth();
+        const date = new Date(this.data.date);
+        const oldMonth = date.getMonth();
         date.setFullYear(date.getFullYear() + year);
-        if(date.getMonth() != oldMonth)
+        if (date.getMonth() !== oldMonth)
             date.setDate(0);
 
         return this.data.date = date;
@@ -159,17 +160,17 @@ let Calendar = Component.extend({
      * @return {Date} date 计算后的日期
      */
     addMonth(month) {
-        if(this.data.readonly || this.data.disabled || !month)
+        if (this.data.readonly || this.data.disabled || !month)
             return;
 
-        if(isNaN(month))
+        if (isNaN(month))
             throw new TypeError(month + ' is not a number!');
 
-        let date = new Date(this.data.date);
-        let correctMonth = date.getMonth() + month;
+        const date = new Date(this.data.date);
+        const correctMonth = date.getMonth() + month;
         date.setMonth(correctMonth);
         // 如果跳月，则置为上一个月
-        if((date.getMonth() - correctMonth)%12)
+        if ((date.getMonth() - correctMonth)%12)
             date.setDate(0);
 
         return this.data.date = date;
@@ -181,7 +182,7 @@ let Calendar = Component.extend({
      * @return {void}
      */
     select(date) {
-        if(this.data.readonly || this.data.disabled || this.isOutOfRange(date))
+        if (this.data.readonly || this.data.disabled || this.isOutOfRange(date))
             return;
 
         this.data.date = new Date(date);
@@ -193,7 +194,7 @@ let Calendar = Component.extend({
          */
         this.$emit('select', {
             sender: this,
-            date: date
+            date,
         });
     },
     /**
@@ -202,10 +203,10 @@ let Calendar = Component.extend({
      * @return {void}
      */
     goToday() {
-        if(this.data.readonly || this.data.disabled)
+        if (this.data.readonly || this.data.disabled)
             return;
 
-        this.data.date = _.clearTime(new Date);
+        this.data.date = _.clearTime(new Date());
     },
     /**
      * @method isOutOfRange(date) 是否超出规定的日期范围
@@ -217,7 +218,7 @@ let Calendar = Component.extend({
         let minDate = this.data.minDate;
         let maxDate = this.data.maxDate;
 
-        if(minDate && typeof minDate === 'string' || maxDate && typeof maxDate === 'string')
+        if (minDate && typeof minDate === 'string' || maxDate && typeof maxDate === 'string')
             return;
 
         // 不要直接在$watch中改变`minDate`和`maxDate`的值，因为有时向外绑定时可能不希望改变它们。
@@ -226,7 +227,7 @@ let Calendar = Component.extend({
 
         // minDate && date < minDate && minDate，先判断是否为空，再判断是否超出范围，如果超出则返回范围边界的日期
         return (minDate && date < minDate && minDate) || (maxDate && date > maxDate && maxDate);
-    }
+    },
 });
 
 export default Calendar;
