@@ -1,4 +1,4 @@
-import { _ } from 'rgui-base';
+import { _ } from 'rgui-ui-base';
 
 _.MS_OF_DAY = 24*3600*1000;
 

@@ -1,5 +1,5 @@
 {
-  "name": "rgui-calendar",
+  "name": "rgui-ui-calendar",
   "description": "Regular UI - Calendar",
   "version": "0.2.0",
   "author": "Rainfore <rainforest92@126.com>",
@@ -11,6 +11,6 @@
   "keywords": ["regular", "ui", "calendar"],
   "tags": ["regular", "ui", "calendar"],
   "dependencies": {
-    "rgui-base": "0.2.0-alpha.1"
+    "rgui-ui-base": "0.2.0-alpha"
   }
 }
