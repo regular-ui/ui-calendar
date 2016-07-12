@@ -11,6 +11,6 @@
   "keywords": ["regular", "ui", "calendar"],
   "tags": ["regular", "ui", "calendar"],
   "dependencies": {
-    "rgui-ui-base": "0.2.0-alpha"
+    "rgui-ui-base": "0.2.0-alpha.2"
   }
 }
