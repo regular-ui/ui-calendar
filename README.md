@@ -8,16 +8,16 @@ Regular UI - Calendar
 [![Dependencies][david-img]][david-url]
 [![NPM Download][download-img]][download-url]
 
-[npm-img]: http://img.shields.io/npm/v/rgui-calendar.svg?style=flat-square
-[npm-url]: http://npmjs.org/package/rgui-calendar
+[npm-img]: http://img.shields.io/npm/v/rgui-ui-calendar.svg?style=flat-square
+[npm-url]: http://npmjs.org/package/rgui-ui-calendar
 [travis-img]: https://img.shields.io/travis/regular-ui/ui-calendar.svg?style=flat-square
 [travis-url]: https://travis-ci.org/regular-ui/ui-calendar
 [coveralls-img]: https://img.shields.io/coveralls/regular-ui/ui-calendar.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/regular-ui/ui-calendar
 [david-img]: http://img.shields.io/david/regular-ui/ui-calendar.svg?style=flat-square
 [david-url]: https://david-dm.org/regular-ui/ui-calendar
-[download-img]: https://img.shields.io/npm/dm/rgui-calendar.svg?style=flat-square
-[download-url]: https://npmjs.org/package/rgui-calendar
+[download-img]: https://img.shields.io/npm/dm/rgui-ui-calendar.svg?style=flat-square
+[download-url]: https://npmjs.org/package/rgui-ui-calendar
 
 ## Calendar（日历）
 
