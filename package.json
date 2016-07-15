@@ -8,8 +8,8 @@
   "homepage": "http://regular-ui.github.io",
   "bugs": {"url": "http://github.com/regular-ui/ui-calendar/issues"},
   "license": "MIT",
-  "keywords": ["regular", "ui", "calendar"],
-  "tags": ["regular", "ui", "calendar"],
+  "keywords": ["regular", "ui", "rgui", "calendar"],
+  "tags": ["regular", "ui", "rgui", "calendar"],
   "dependencies": {
     "rgui-ui-base": "0.2.0-alpha.2"
   }
