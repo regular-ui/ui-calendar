@@ -12,9 +12,9 @@ $u-calendar_item_height = 30px;
 .u-calendar {
     width: $u-calendar_item_width * 7 + 2 * 7;
     padding: 4px;
-    background: $u-formctrl_background;
-    color: $u-formctrl_color;
-    $border: $u-formctrl_border;
+    background: $field_background;
+    color: $field_color;
+    $border: $field_border;
     $border-radius: $border-radius-lg;
 
     .calendar_item {
@@ -25,22 +25,22 @@ $u-calendar_item_height = 30px;
     }
 
     .calendar_item:hover {
-        background: $u-formctrl_item-hover_background;
-        color: $u-formctrl_item-hover_color;
+        background: $item-hover_background;
+        color: $item-hover_color;
     }
 
     .calendar_item.z-sel {
-        background: $u-formctrl_item-selected_background;
-        color: $u-formctrl_item-selected_color;
+        background: $item-selected_background;
+        color: $item-selected_color;
     }
 
     .calendar_item.z-muted {
-        color: $u-formctrl-disabled_color;
+        color: $field-disabled_color;
     }
 
     .calendar_item.z-dis {
         background: none;
-        color: $u-formctrl-disabled_color;
+        color: $field-disabled_color;
     }
 
     .calendar_hd {
@@ -57,12 +57,12 @@ $u-calendar_item_height = 30px;
 /* Disabled */
 .u-calendar.z-dis {
     .calendar_item {
-        background: $u-formctrl_background;
-        color: $u-formctrl-disabled_color;
+        background: $field_background;
+        color: $field-disabled_color;
     }
 
     .calendar_item.z-sel {
-        background: $u-formctrl-disabled_background;
-        color: $u-formctrl-disabled_color;
+        background: $field-disabled_background;
+        color: $field-disabled_color;
     }
 }
