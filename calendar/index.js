@@ -29,7 +29,13 @@ const Calendar = Component.extend({
             _days: [],
         }, this.data);
         this.supr();
-
+        this.watch();
+    },
+    /**
+     * @protected
+     * @override
+     */
+    watch() {
         this.$watch('date', (newValue, oldValue) => {
             // 时间戳或字符串自动转为日期类型
             if (typeof newValue === 'number')

@@ -21,8 +21,7 @@ Regular UI - Calendar
 
 ## Calendar（日历）
 
-- 基础示例+API: https://regular-ui.github.io/ui-calendar/calendar/index.html
-- 进阶案例: https://regular-ui.github.io/ui-calendar/calendar/case.html
+- 基础示例+进阶案例+API: https://regular-ui.github.io/ui-calendar/calendar/index.html
 
 ## Copyright and License
 
