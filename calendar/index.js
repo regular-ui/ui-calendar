@@ -22,12 +22,12 @@ const Calendar = Component.extend({
      * @override
      */
     config() {
-        this.data = Object.assign({
+        this.defaults({
             date: _.clearTime(new Date()),
             minDate: undefined,
             maxDate: undefined,
             _days: [],
-        }, this.data);
+        });
         this.supr();
         this.watch();
     },
