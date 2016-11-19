@@ -20,6 +20,11 @@
         cursor: not-allowed;
     }
 
+    .calendar_item-week {
+        font-weight: bold;
+        cursor: default;
+    }
+
     .calendar_hd {
         $clearfix();
 
@@ -34,11 +39,6 @@
 
     .calendar_bd {
         clear: both;
-
-        .calendar_week .calendar_item {
-            font-weight: bold;
-            cursor: default;
-        }
     }
 }
 

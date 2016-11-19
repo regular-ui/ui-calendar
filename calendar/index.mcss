@@ -17,7 +17,13 @@ $u-calendar_item_height = 30px;
     $border: $field_border;
     $border-radius: $border-radius-lg;
 
+    .calendar_weeks, .calendar_days, .calendar_prev, .calendar_next {
+        // - remove space between inline blocks
+        font-size: 0;
+    }
+
     .calendar_item {
+        font-size: $font-size-base;
         width: $u-calendar_item_width;
         $line-height: $u-calendar_item_height;
         margin: 1px;
@@ -43,14 +49,32 @@ $u-calendar_item_height = 30px;
         color: $field-disabled_color;
     }
 
-    .calendar_hd {
-        line-height: $u-calendar_item_height + 2px;
+    .calendar_prev .calendar_item-year:before {
+        @extend .u-icon;
+        @extend .u-icon-angle-double-left:before;
     }
 
-    .calendar_bd {
-        .calendar_week .calendar_item {
-            background: none;
-        }
+    .calendar_next .calendar_item-year:before {
+        @extend .u-icon;
+        @extend .u-icon-angle-double-right:before;
+    }
+
+    .calendar_prev .calendar_item-month:before {
+        @extend .u-icon;
+        @extend .u-icon-angle-left:before;
+    }
+
+    .calendar_next .calendar_item-month:before {
+        @extend .u-icon;
+        @extend .u-icon-angle-right:before;
+    }
+
+    .calendar_item-week, .calendar_item-week:hover {
+        background: none;
+    }
+
+    .calendar_hd {
+        line-height: $u-calendar_item_height + 2px;
     }
 }
 

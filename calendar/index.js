@@ -36,18 +36,18 @@ const Calendar = Component.extend({
      * @override
      */
     watch() {
-        this.$watch('date', (newValue, oldValue) => {
+        this.$watch('date', (date, oldDate) => {
             // 时间戳或字符串自动转为日期类型
-            if (typeof newValue === 'number')
-                return this.data.date = new Date(newValue);
-            else if (typeof newValue === 'string')
-                return this.data.date = _.parseDate(newValue);
+            if (typeof date === 'number')
+                return this.data.date = new Date(date);
+            else if (typeof date === 'string')
+                return this.data.date = _.parseDate(date);
 
-            if (!newValue || newValue + '' === 'Invalid Date')
+            if (!date || date + '' === 'Invalid Date')
                 throw new TypeError('Invalid Date');
 
             // 如果超出日期范围，则设置为范围边界的日期
-            const isOutOfRange = this.isOutOfRange(newValue);
+            const isOutOfRange = this.isOutOfRange(date);
             if (isOutOfRange) {
                 this.data.date = isOutOfRange;
 
@@ -56,9 +56,9 @@ const Calendar = Component.extend({
                 return;
             }
 
-            if (!oldValue || !oldValue.getFullYear)
+            if (!oldDate || !oldDate.getFullYear)
                 this._update();
-            else if (newValue.getFullYear() !== oldValue.getFullYear() || newValue.getMonth() !== oldValue.getMonth())
+            else if (date.getFullYear() !== oldDate.getFullYear() || date.getMonth() !== oldDate.getMonth())
                 this._update();
 
             /**
@@ -68,35 +68,35 @@ const Calendar = Component.extend({
              */
             this.$emit('change', {
                 sender: this,
-                date: newValue,
+                date,
             });
         });
 
-        this.$watch('minDate', (newValue, oldValue) => {
-            if (!newValue)
+        this.$watch('minDate', (minDate) => {
+            if (!minDate)
                 return;
 
             // 时间戳或字符串自动转为日期类型
-            if (typeof newValue === 'number')
-                return this.data.minDate = new Date(newValue);
-            else if (typeof newValue === 'string')
-                return this.data.minDate = _.parseDate(newValue);
+            if (typeof minDate === 'number')
+                return this.data.minDate = new Date(minDate);
+            else if (typeof minDate === 'string')
+                return this.data.minDate = _.parseDate(minDate);
 
-            if (newValue + '' === 'Invalid Date')
+            if (minDate + '' === 'Invalid Date')
                 throw new TypeError('Invalid Date');
         });
 
-        this.$watch('maxDate', (newValue, oldValue) => {
-            if (!newValue)
+        this.$watch('maxDate', (minDate) => {
+            if (!minDate)
                 return;
 
             // 时间戳或字符串自动转为日期类型
-            if (typeof newValue === 'number')
-                return this.data.maxDate = new Date(newValue);
-            else if (typeof newValue === 'string')
-                return this.data.maxDate = _.parseDate(newValue);
+            if (typeof minDate === 'number')
+                return this.data.maxDate = new Date(minDate);
+            else if (typeof minDate === 'string')
+                return this.data.maxDate = _.parseDate(minDate);
 
-            if (newValue + '' === 'Invalid Date')
+            if (minDate + '' === 'Invalid Date')
                 throw new TypeError('Invalid Date');
         });
 
