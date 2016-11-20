@@ -3,14 +3,14 @@
 // Varibles:
 // ========================================================================
 
-$u-calendar_item_width = 32px;
-$u-calendar_item_height = 30px;
+$m-calendar_item_width = 32px;
+$m-calendar_item_height = 30px;
 
-// Component:       `u-calendar`
+// Component:       `m-calendar`
 // ========================================================================
 
-.u-calendar {
-    width: $u-calendar_item_width * 7 + 2 * 7;
+.m-calendar {
+    width: $m-calendar_item_width * 7 + 2 * 7;
     padding: 4px;
     background: $field_background;
     color: $field_color;
@@ -24,8 +24,8 @@ $u-calendar_item_height = 30px;
 
     .calendar_item {
         font-size: $font-size-base;
-        width: $u-calendar_item_width;
-        $line-height: $u-calendar_item_height;
+        width: $m-calendar_item_width;
+        $line-height: $m-calendar_item_height;
         margin: 1px;
         $border-radius: $border-radius-base;
     }
@@ -74,12 +74,12 @@ $u-calendar_item_height = 30px;
     }
 
     .calendar_hd {
-        line-height: $u-calendar_item_height + 2px;
+        line-height: $m-calendar_item_height + 2px;
     }
 }
 
 /* Disabled */
-.u-calendar.z-dis {
+.m-calendar.z-dis {
     .calendar_item {
         background: $field_background;
         color: $field-disabled_color;

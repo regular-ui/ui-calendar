@@ -1,7 +1,7 @@
-// Component:       `u-calendar`
+// Component:       `m-calendar`
 // ========================================================================
 
-.u-calendar {
+.m-calendar {
     text-align: center;
     $user-select: none;
 
@@ -43,7 +43,7 @@
 }
 
 /* Disabled */
-.u-calendar.z-dis {
+.m-calendar.z-dis {
     .calendar_item {
         cursor: not-allowed;
     }
