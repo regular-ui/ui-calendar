@@ -1,3 +1,3 @@
-import Calendar from './calendar';
+import Calendar from './src/calendar';
 
 export { Calendar };

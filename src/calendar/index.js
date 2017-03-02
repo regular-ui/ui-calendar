@@ -4,8 +4,8 @@ import template from './index.rgl';
 
 /**
  * @class Calendar
- * @extend Component
- * @param {object}                  options.data                     =  绑定属性
+ * @extends Component
+ * @param {Object}                  options.data                     =  绑定属性
  * @param {Date|number|string=TODAY} options.data.date               <=> 当前选择的日期
  * @param {Date|number|string}      options.data.minDate             => 最小日期，如果为空则不限制
  * @param {Date|number|string}      options.data.maxDate             => 最大日期，如果为空则不限制
